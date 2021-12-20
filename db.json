@@ -4,7 +4,7 @@
       "name": "Computer",
       "price": "430",
       "quantity": 600,
-      "selected": true,
+      "selected": false,
       "available": false,
       "id": 1
     },
@@ -23,6 +23,22 @@
       "selected": true,
       "available": true,
       "id": 3
+    },
+    {
+      "name": "Mouse",
+      "price": "1000",
+      "quantity": "2",
+      "selected": true,
+      "available": true,
+      "id": 4
+    },
+    {
+      "name": "Clavier",
+      "price": "2000",
+      "quantity": "1",
+      "selected": true,
+      "available": true,
+      "id": 5
     }
   ]
 }

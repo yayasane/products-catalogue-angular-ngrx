@@ -4,6 +4,11 @@ import { Action } from '@ngrx/store'
 import { catchError, map, mergeMap, Observable, of } from 'rxjs'
 import { ProductService } from '../services/products.service'
 import {
+  NewProductActionSuccess,
+  SaveProductActionError,
+  SaveProductActionSuccess,
+} from './products.actions'
+import {
   ProductsActions,
   SelectProductActionSuccess,
   SelectProductActionError,
@@ -77,7 +82,8 @@ export class ProductsEffects {
       }),
     ),
   )
-  /* Search Products */
+
+  /* Delete Products */
   deleteProductEffect: Observable<ProductsActions> = createEffect(() =>
     this.effectActions.pipe(
       ofType(ProductsActionsTypes.DELETE_PRODUCT),
@@ -85,6 +91,29 @@ export class ProductsEffects {
         return this.productsService.deleteProduct(action.payload).pipe(
           map((product) => new DeleteProductActionSuccess(action.payload)),
           catchError((err) => of(new DeleteProductActionError(err.message))),
+        )
+      }),
+    ),
+  )
+
+  /* New Product */
+  newProductEffect: Observable<ProductsActions> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(ProductsActionsTypes.NEW_PRODUCT),
+      map((action: ProductsActions) => {
+        return new NewProductActionSuccess(undefined)
+      }),
+    ),
+  )
+
+  /* Search Products */
+  saveProductEffect: Observable<ProductsActions> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(ProductsActionsTypes.SAVE_PRODUCT),
+      mergeMap((action: ProductsActions) => {
+        return this.productsService.saveProduct(action.payload).pipe(
+          map((product) => new SaveProductActionSuccess(product)),
+          catchError((err) => of(new SaveProductActionError(err.message))),
         )
       }),
     ),

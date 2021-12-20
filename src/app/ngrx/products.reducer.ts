@@ -7,6 +7,8 @@ export enum ProductsStateEnum {
   LOADED = 'Loaded',
   ERROR = 'Error',
   INITIAL = 'Initial',
+  NEW = 'NEW',
+  EDIT = 'EDIT',
 }
 
 export interface ProductsState {
@@ -93,6 +95,7 @@ export function productsReducer(
         dataState: ProductsStateEnum.ERROR,
         errorMessage: (<ProductsActions>action).payload,
       }
+
     /* Delect product */
     case ProductsActionsTypes.DELETE_PRODUCT:
       return { ...state, dataState: ProductsStateEnum.LOADING }
@@ -107,6 +110,39 @@ export function productsReducer(
       }
     }
     case ProductsActionsTypes.DELETE_PRODUCT_ERROR:
+      return {
+        ...state,
+        dataState: ProductsStateEnum.ERROR,
+        errorMessage: (<ProductsActions>action).payload,
+      }
+
+    /* New product */
+    case ProductsActionsTypes.NEW_PRODUCT:
+      return { ...state, dataState: ProductsStateEnum.LOADING }
+    case ProductsActionsTypes.NEW_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        dataState: ProductsStateEnum.NEW,
+      }
+
+    case ProductsActionsTypes.NEW_PRODUCT_ERROR:
+      return {
+        ...state,
+        dataState: ProductsStateEnum.ERROR,
+        errorMessage: (<ProductsActions>action).payload,
+      }
+
+    /* Save product */
+    case ProductsActionsTypes.SAVE_PRODUCT:
+      return { ...state, dataState: ProductsStateEnum.LOADING }
+    case ProductsActionsTypes.SAVE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        dataState: ProductsStateEnum.LOADED,
+        products: [...state.products, (action as ProductsActions).payload],
+      }
+
+    case ProductsActionsTypes.SAVE_PRODUCT_ERROR:
       return {
         ...state,
         dataState: ProductsStateEnum.ERROR,
