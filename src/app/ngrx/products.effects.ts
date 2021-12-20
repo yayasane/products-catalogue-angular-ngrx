@@ -3,7 +3,13 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { Action } from '@ngrx/store'
 import { catchError, map, mergeMap, Observable, of } from 'rxjs'
 import { ProductService } from '../services/products.service'
-import { ProductsActions } from './products.actions'
+import {
+  ProductsActions,
+  SelectProductActionSuccess,
+  SelectProductActionError,
+  DeleteProductActionSuccess,
+  DeleteProductActionError,
+} from './products.actions'
 import {
   GetAllProductsActionError,
   GetAllProductsActionSuccess,
@@ -55,6 +61,30 @@ export class ProductsEffects {
         return this.productsService.searchProducts(action.payload).pipe(
           map((products) => new SearchProductsActionSuccess(products)),
           catchError((err) => of(new SearchProductsActionError(err.message))),
+        )
+      }),
+    ),
+  )
+  /* Search Products */
+  selectProductEffect: Observable<ProductsActions> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(ProductsActionsTypes.SELECT_PRODUCT),
+      mergeMap((action: ProductsActions) => {
+        return this.productsService.selectProduct(action.payload).pipe(
+          map((product) => new SelectProductActionSuccess(product)),
+          catchError((err) => of(new SelectProductActionError(err.message))),
+        )
+      }),
+    ),
+  )
+  /* Search Products */
+  deleteProductEffect: Observable<ProductsActions> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(ProductsActionsTypes.DELETE_PRODUCT),
+      mergeMap((action: ProductsActions) => {
+        return this.productsService.deleteProduct(action.payload).pipe(
+          map((product) => new DeleteProductActionSuccess(action.payload)),
+          catchError((err) => of(new DeleteProductActionError(err.message))),
         )
       }),
     ),

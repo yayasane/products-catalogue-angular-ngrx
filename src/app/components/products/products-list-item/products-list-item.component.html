@@ -3,6 +3,25 @@
   <td>{{ product.name }}</td>
   <td>{{ product.price }}</td>
   <td>{{ product.quantity }}</td>
-  <td>{{ product.selected }}</td>
+  <td>
+    <span
+      [class]="product.selected ? 'fa fa-check-circle text-success' : ''"
+    ></span>
+  </td>
   <td>{{ product.available }}</td>
+  <td>
+    <button
+      [class]="
+        'btn btn-sm btn-success' +
+        (!product.selected ? ' btn-success' : ' btn-danger')
+      "
+      (click)="onSelectProduct(product)"
+    >
+      <span *ngIf="product.selected">Unselect</span>
+      <span *ngIf="!product.selected">Select</span>
+    </button>
+  </td>
+  <td (click)="onDelete(product)">
+    <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+  </td>
 </tr>

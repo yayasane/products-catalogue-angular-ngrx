@@ -72,6 +72,46 @@ export function productsReducer(
         dataState: ProductsStateEnum.ERROR,
         errorMessage: (<ProductsActions>action).payload,
       }
+
+    /* Select product */
+    case ProductsActionsTypes.SELECT_PRODUCT:
+      return { ...state, dataState: ProductsStateEnum.LOADING }
+    case ProductsActionsTypes.SELECT_PRODUCT_SUCCESS:
+      let product: Product = (action as ProductsActions).payload
+      let productsList = [...state.products]
+      const newProductsList = productsList.map((p) =>
+        p.id === product.id ? product : p,
+      )
+      return {
+        ...state,
+        dataState: ProductsStateEnum.LOADED,
+        products: newProductsList,
+      }
+    case ProductsActionsTypes.SELECT_PRODUCT_ERROR:
+      return {
+        ...state,
+        dataState: ProductsStateEnum.ERROR,
+        errorMessage: (<ProductsActions>action).payload,
+      }
+    /* Delect product */
+    case ProductsActionsTypes.DELETE_PRODUCT:
+      return { ...state, dataState: ProductsStateEnum.LOADING }
+    case ProductsActionsTypes.DELETE_PRODUCT_SUCCESS: {
+      let product: Product = (action as ProductsActions).payload
+      let productsList = [...state.products]
+      const newProductsList = productsList.filter((p) => p.id !== product.id)
+      return {
+        ...state,
+        dataState: ProductsStateEnum.LOADED,
+        products: newProductsList,
+      }
+    }
+    case ProductsActionsTypes.DELETE_PRODUCT_ERROR:
+      return {
+        ...state,
+        dataState: ProductsStateEnum.ERROR,
+        errorMessage: (<ProductsActions>action).payload,
+      }
     default:
       return state
   }

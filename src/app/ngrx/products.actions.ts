@@ -16,6 +16,16 @@ export enum ProductsActionsTypes {
   SEARCH_PRODUCTS = '[Products] Search products',
   SEARCH_PRODUCTS_SUCCESS = '[Products] Search products Success',
   SEARCH_PRODUCTS_ERROR = '[Products] Search products Error',
+
+  /* Select product */
+  SELECT_PRODUCT = '[Products] Select product',
+  SELECT_PRODUCT_SUCCESS = '[Products] Select product Success',
+  SELECT_PRODUCT_ERROR = '[Products] Select product Error',
+
+  /* Select product */
+  DELETE_PRODUCT = '[Products] Delete product',
+  DELETE_PRODUCT_SUCCESS = '[Products] Delete product Success',
+  DELETE_PRODUCT_ERROR = '[Products] Delete product Error',
 }
 
 /* GET ALL Products actions*/
@@ -71,6 +81,39 @@ export class SearchProductsActionError implements Action {
   constructor(public payload: string) {}
 }
 
+/* Select Product actions */
+export class SelectProductAction implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.SELECT_PRODUCT
+
+  constructor(public payload: Product) {}
+}
+export class SelectProductActionSuccess implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.SELECT_PRODUCT_SUCCESS
+
+  constructor(public payload: Product) {}
+}
+export class SelectProductActionError implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.SELECT_PRODUCT_ERROR
+
+  constructor(public payload: string) {}
+}
+/* Delect Product actions */
+export class DeleteProductAction implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.DELETE_PRODUCT
+
+  constructor(public payload: Product) {}
+}
+export class DeleteProductActionSuccess implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.DELETE_PRODUCT_SUCCESS
+
+  constructor(public payload: Product) {}
+}
+export class DeleteProductActionError implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.DELETE_PRODUCT_ERROR
+
+  constructor(public payload: string) {}
+}
+
 export type ProductsActions =
   | GetAllProductsAction
   | GetAllProductsActionSuccess
@@ -81,3 +124,9 @@ export type ProductsActions =
   | SearchProductsAction
   | SearchProductsActionSuccess
   | SearchProductsActionError
+  | SelectProductAction
+  | SelectProductActionSuccess
+  | SelectProductActionError
+  | DeleteProductAction
+  | DeleteProductActionSuccess
+  | DeleteProductActionError
