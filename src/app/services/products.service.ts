@@ -9,7 +9,8 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
   getAllProducts(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>(`${environment.host}/products`)
+    let host = Math.random() > 0.2 ? environment.host : environment.unreachable
+    return this.httpClient.get<Product[]>(`${host}/products`)
   }
 
   getSelectedProducts(): Observable<Product[]> {
