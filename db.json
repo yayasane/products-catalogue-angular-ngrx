@@ -5,16 +5,16 @@
       "price": "430",
       "quantity": 600,
       "selected": false,
-      "available": false,
+      "available": true,
       "id": 1
     },
     {
-      "id": 2,
       "name": "Printer",
       "price": 300,
       "quantity": 100,
       "selected": true,
-      "available": true
+      "available": true,
+      "id": 2
     },
     {
       "name": "SmartPhone",
@@ -39,6 +39,14 @@
       "selected": true,
       "available": true,
       "id": 5
+    },
+    {
+      "name": "pop",
+      "price": 0,
+      "quantity": 0,
+      "selected": true,
+      "available": true,
+      "id": 6
     }
   ]
 }

@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { Product } from 'src/app/models/product.model'
 import { Store } from '@ngrx/store'
+import { Router } from '@angular/router'
 import {
   DeleteProductAction,
+  EditProductAction,
   SelectProductAction,
 } from '../../../ngrx/products.actions'
 
@@ -13,7 +15,7 @@ import {
 })
 export class ProductsListItemComponent implements OnInit {
   @Input() product?: Product
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -23,5 +25,9 @@ export class ProductsListItemComponent implements OnInit {
 
   onDelete(product: Product) {
     this.store.dispatch(new DeleteProductAction(product))
+  }
+
+  onEdit(product: Product) {
+    this.router.navigateByUrl('/editProduct/' + product.id)
   }
 }

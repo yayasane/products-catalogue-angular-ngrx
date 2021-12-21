@@ -13,7 +13,8 @@ import { productsReducer } from './ngrx/products.reducer'
 import { ProductsListComponent } from './components/products/products-list/products-list.component'
 import { ProductsListItemComponent } from './components/products/products-list-item/products-list-item.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NewProductComponent } from './components/products/new-product/new-product.component'
+import { NewProductComponent } from './components/products/new-product/new-product.component';
+import { EditProductComponent } from './components/products/edit-product/edit-product.component'
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { NewProductComponent } from './components/products/new-product/new-produ
     ProductsListComponent,
     ProductsListItemComponent,
     NewProductComponent,
+    EditProductComponent,
   ],
   imports: [
     BrowserModule,

@@ -38,9 +38,14 @@ export enum ProductsActionsTypes {
   SAVE_PRODUCT_ERROR = '[Products] Save product Error',
 
   /* Edit product */
-  EDIT = '[Products] Edit product',
-  EDIT_SUCCESS = '[Products] Edit product Success',
-  EDIT_ERROR = '[Products] Edit product Error',
+  EDIT_PRODUCT = '[Products] Edit product',
+  EDIT_PRODUCT_SUCCESS = '[Products] Edit product Success',
+  EDIT_PRODUCT_ERROR = '[Products] Edit product Error',
+
+  /* Update product */
+  UPDATE_PRODUCT = '[Products] Update product',
+  UPDATE_PRODUCT_SUCCESS = '[Products] Update product Success',
+  UPDATE_PRODUCT_ERROR = '[Products] Update product Error',
 }
 
 /* GET ALL Products actions*/
@@ -164,6 +169,40 @@ export class SaveProductActionError implements Action {
   constructor(public payload: string) {}
 }
 
+/* Edit Product actions */
+export class EditProductAction implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.EDIT_PRODUCT
+
+  constructor(public payload: number) {}
+}
+export class EditProductActionSuccess implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.EDIT_PRODUCT_SUCCESS
+
+  constructor(public payload: Product) {}
+}
+export class EditProductActionError implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.EDIT_PRODUCT_ERROR
+
+  constructor(public payload: string) {}
+}
+
+/* Update Product actions */
+export class UpdateProductAction implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.UPDATE_PRODUCT
+
+  constructor(public payload: Product) {}
+}
+export class UpdateProductActionSuccess implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.UPDATE_PRODUCT_SUCCESS
+
+  constructor(public payload: Product) {}
+}
+export class UpdateProductActionError implements Action {
+  type: ProductsActionsTypes = ProductsActionsTypes.UPDATE_PRODUCT_ERROR
+
+  constructor(public payload: string) {}
+}
+
 export type ProductsActions =
   | GetAllProductsAction
   | GetAllProductsActionSuccess
@@ -186,3 +225,9 @@ export type ProductsActions =
   | SaveProductAction
   | SaveProductActionSuccess
   | SaveProductActionError
+  | EditProductAction
+  | EditProductActionSuccess
+  | EditProductActionError
+  | UpdateProductAction
+  | UpdateProductActionSuccess
+  | UpdateProductActionError

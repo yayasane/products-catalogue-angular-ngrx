@@ -4,9 +4,13 @@ import { Action } from '@ngrx/store'
 import { catchError, map, mergeMap, Observable, of } from 'rxjs'
 import { ProductService } from '../services/products.service'
 import {
+  EditProductActionError,
+  EditProductActionSuccess,
   NewProductActionSuccess,
   SaveProductActionError,
   SaveProductActionSuccess,
+  UpdateProductActionError,
+  UpdateProductActionSuccess,
 } from './products.actions'
 import {
   ProductsActions,
@@ -106,7 +110,7 @@ export class ProductsEffects {
     ),
   )
 
-  /* Search Products */
+  /* Save Product effect */
   saveProductEffect: Observable<ProductsActions> = createEffect(() =>
     this.effectActions.pipe(
       ofType(ProductsActionsTypes.SAVE_PRODUCT),
@@ -114,6 +118,32 @@ export class ProductsEffects {
         return this.productsService.saveProduct(action.payload).pipe(
           map((product) => new SaveProductActionSuccess(product)),
           catchError((err) => of(new SaveProductActionError(err.message))),
+        )
+      }),
+    ),
+  )
+
+  /* Edit Product effect */
+  editProductEffect: Observable<ProductsActions> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(ProductsActionsTypes.EDIT_PRODUCT),
+      mergeMap((action: ProductsActions) => {
+        return this.productsService.getProduct(action.payload).pipe(
+          map((product) => new EditProductActionSuccess(product)),
+          catchError((err) => of(new EditProductActionError(err.message))),
+        )
+      }),
+    ),
+  )
+
+  /* Update Product effect */
+  updateProductEffect: Observable<ProductsActions> = createEffect(() =>
+    this.effectActions.pipe(
+      ofType(ProductsActionsTypes.UPDATE_PRODUCT),
+      mergeMap((action: ProductsActions) => {
+        return this.productsService.editProduct(action.payload).pipe(
+          map((product) => new UpdateProductActionSuccess(product)),
+          catchError((err) => of(new UpdateProductActionError(err.message))),
         )
       }),
     ),
